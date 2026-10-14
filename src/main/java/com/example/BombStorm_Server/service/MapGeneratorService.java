@@ -42,6 +42,7 @@ public class MapGeneratorService {
     // Gọi hàm này mỗi khi Client kết nối để tạo 1 trận mới
     public GameMap generateMapSession(String mapId) {
         GameMap config = mapConfigs.get(mapId);
+
         if (config == null) {
             throw new RuntimeException("Không tìm thấy cấu hình map: " + mapId);
         }
@@ -49,20 +50,10 @@ public class MapGeneratorService {
         int width = config.getWidth();
         int height = config.getHeight();
         int boxAmount = config.getBoxAmount();
+        int[] mapData = config.getMapData();
 
-        int[] mapData = new int[width * height];
-
-        // Bước A: Xây viền tường
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                boolean isWall = (i == 0 || j == 0 || i == width - 1 || j == height - 1);
-                int index = j * width + i;
-                if (isWall) {
-                    mapData[index] = 1; // 1 = Tường
-                } else {
-                    mapData[index] = 0; // 0 = Trống
-                }
-            }
+        if (mapData == null || mapData.length != width * height) {
+            throw new IllegalArgumentException("Dữ liệu map không hợp lệ");
         }
 
         // Bước B: Rải hộp ngẫu nhiên

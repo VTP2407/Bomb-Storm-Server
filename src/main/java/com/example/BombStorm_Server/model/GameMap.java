@@ -11,6 +11,17 @@ public class GameMap {
 
     private int[] mapData;
 
+    public GameMap() {
+    }
+
+    public GameMap(String id, String name, int width, int height, int boxAmount, int[] mapData) {
+        this.id = id;
+        this.name = name;
+        this.width = width;
+        this.height = height;
+        this.boxAmount = boxAmount;
+        this.mapData = mapData;
+    }
 
     public Vector2Int GetRandomEmptyPosition(){
         int attemps = 1000;
