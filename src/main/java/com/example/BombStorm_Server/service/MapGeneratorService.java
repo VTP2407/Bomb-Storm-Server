@@ -50,11 +50,13 @@ public class MapGeneratorService {
         int width = config.getWidth();
         int height = config.getHeight();
         int boxAmount = config.getBoxAmount();
-        int[] mapData = config.getMapData();
+        int[] configData = config.getMapData();
 
-        if (mapData == null || mapData.length != width * height) {
+        if (configData == null || configData.length != width * height) {
             throw new IllegalArgumentException("Dữ liệu map không hợp lệ");
         }
+
+        int[] mapData = configData.clone();
 
         // Bước B: Rải hộp ngẫu nhiên
         Random random = new Random();
